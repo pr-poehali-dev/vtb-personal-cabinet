@@ -15,13 +15,13 @@ const Index = () => {
   ];
 
   const depositData = {
-    balance: '1,270,000',
-    rate: '8.4',
-    term: '12',
+    balance: '1,220,000',
+    rate: '18.5',
+    term: '8',
     openDate: '15.12.2024',
-    maturityDate: '15.12.2025',
-    earned: '28,687',
-    progress: 28
+    maturityDate: '27.08.2025',
+    earned: '122,450',
+    progress: 85
   };
 
   return (
@@ -66,7 +66,7 @@ const Index = () => {
                   </div>
                   <div className="flex items-center space-x-1">
                     <Icon name="Calendar" size={16} />
-                    <span>До окончания: {11 - Math.floor(depositData.progress * 12 / 100)} мес.</span>
+                    <span>До окончания: 3 дня</span>
                   </div>
                 </div>
               </div>
