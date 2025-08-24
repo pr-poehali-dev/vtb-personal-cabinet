@@ -7,6 +7,7 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const transactions = [
+    { id: 0, type: 'Пополнение', amount: '+50,000', date: '24.08.2025', status: 'Выполнено' },
     { id: 1, type: 'Пополнение', amount: '+1,220,000', date: '15.12.2024', status: 'Выполнено' },
     { id: 2, type: 'Начисление %', amount: '+8,543', date: '01.12.2024', status: 'Выполнено' },
     { id: 3, type: 'Начисление %', amount: '+8,426', date: '01.11.2024', status: 'Выполнено' },
@@ -14,13 +15,13 @@ const Index = () => {
   ];
 
   const depositData = {
-    balance: '1,220,000',
+    balance: '1,270,000',
     rate: '8.4',
     term: '12',
     openDate: '15.12.2024',
     maturityDate: '15.12.2025',
-    earned: '25,281',
-    progress: 25
+    earned: '28,687',
+    progress: 28
   };
 
   return (
