@@ -51,52 +51,55 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-full mx-auto px-2 py-4">
         {/* Main Balance Card */}
-        <Card className="mb-8 bg-gradient-to-r from-primary to-blue-600 border-0 text-white">
-          <CardContent className="p-8">
-            <div className="flex items-center justify-between">
+        <Card className="mb-4 bg-gradient-to-r from-primary to-blue-600 border-0 text-white">
+          <CardContent className="p-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <p className="text-white/80 text-sm mb-2">Общий баланс депозитов</p>
-                <h1 className="text-4xl font-bold mb-4">{depositData.balance} ₽</h1>
-                <div className="flex items-center space-x-4 text-sm">
+                <p className="text-white/80 text-sm mb-1">Общий баланс депозитов</p>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-2">{depositData.balance} ₽</h1>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm">
                   <div className="flex items-center space-x-1">
-                    <Icon name="TrendingUp" size={16} />
-                    <span>Доходность: {depositData.rate}% годовых</span>
+                    <Icon name="TrendingUp" size={14} />
+                    <span>Доходность: {depositData.rate}%</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Icon name="Calendar" size={16} />
+                    <Icon name="Calendar" size={14} />
                     <span>До окончания: 4 дня</span>
                   </div>
                 </div>
               </div>
-              <div className="text-right">
-                <p className="text-white/80 text-sm mb-2">Начислено за период</p>
-                <p className="text-2xl font-semibold">+{depositData.earned} ₽</p>
-                <Progress value={depositData.progress} className="w-32 mt-2" />
+              <div className="text-left sm:text-right">
+                <p className="text-white/80 text-sm mb-1">Начислено за период</p>
+                <p className="text-xl sm:text-2xl font-semibold">+{depositData.earned} ₽</p>
+                <Progress value={depositData.progress} className="w-24 sm:w-32 mt-1" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Tabs defaultValue="deposits" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6 bg-card/20 backdrop-blur-sm">
-            <TabsTrigger value="deposits" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white">
-              <Icon name="Wallet" size={16} className="mr-2" />
-              Депозиты
+          <TabsList className="grid w-full grid-cols-3 mb-3 bg-card/20 backdrop-blur-sm text-xs sm:text-sm">
+            <TabsTrigger value="deposits" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-1">
+              <Icon name="Wallet" size={14} className="mr-1" />
+              <span className="hidden sm:inline">Депозиты</span>
+              <span className="sm:hidden">Депо</span>
             </TabsTrigger>
-            <TabsTrigger value="transactions" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white">
-              <Icon name="Receipt" size={16} className="mr-2" />
-              Операции
+            <TabsTrigger value="transactions" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-1">
+              <Icon name="Receipt" size={14} className="mr-1" />
+              <span className="hidden sm:inline">Операции</span>
+              <span className="sm:hidden">Опер</span>
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white">
-              <Icon name="BarChart3" size={16} className="mr-2" />
-              Аналитика
+            <TabsTrigger value="analytics" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-1">
+              <Icon name="BarChart3" size={14} className="mr-1" />
+              <span className="hidden sm:inline">Аналитика</span>
+              <span className="sm:hidden">Анал</span>
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="deposits">
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-3 lg:grid-cols-2">
               <Card className="bg-card/90 backdrop-blur-sm border-white/10">
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between text-white">
