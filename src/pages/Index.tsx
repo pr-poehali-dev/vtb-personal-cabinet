@@ -17,11 +17,11 @@ const Index = () => {
   const depositData = {
     balance: '1,220,000',
     rate: '18.5',
-    term: '8',
-    openDate: '15.12.2024',
-    maturityDate: '27.08.2025',
-    earned: '122,450',
-    progress: 85
+    term: '4',
+    openDate: '24.04.2025',
+    maturityDate: '28.08.2025',
+    earned: '76,070',
+    progress: 99
   };
 
   return (
@@ -66,7 +66,7 @@ const Index = () => {
                   </div>
                   <div className="flex items-center space-x-1">
                     <Icon name="Calendar" size={16} />
-                    <span>До окончания: 3 дня</span>
+                    <span>До окончания: 4 дня</span>
                   </div>
                 </div>
               </div>
