@@ -7,25 +7,24 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const transactions = [
-    { id: 0, type: 'Пополнение', amount: '+50,000', date: '24.08.2025', status: 'Выполнено' },
-    { id: 1, type: 'Пополнение', amount: '+1,220,000', date: '15.12.2024', status: 'Выполнено' },
-    { id: 2, type: 'Начисление %', amount: '+8,543', date: '01.12.2024', status: 'Выполнено' },
-    { id: 3, type: 'Начисление %', amount: '+8,426', date: '01.11.2024', status: 'Выполнено' },
-    { id: 4, type: 'Начисление %', amount: '+8,312', date: '01.10.2024', status: 'Выполнено' },
+    { id: 0, type: 'Начисление %', amount: '+46,333', date: '28.07.2025', status: 'Выполнено' },
+    { id: 1, type: 'Начисление %', amount: '+46,333', date: '28.03.2025', status: 'Выполнено' },
+    { id: 2, type: 'Начисление %', amount: '+46,333', date: '28.11.2024', status: 'Выполнено' },
+    { id: 3, type: 'Начисление %', amount: '+46,333', date: '28.07.2024', status: 'Выполнено' },
   ];
 
   const depositData = {
-    balance: '1,220,000',
+    balance: '1,221,000',
     rate: '18.5',
-    term: '4',
-    openDate: '24.04.2025',
+    term: '17',
+    openDate: '28.03.2024',
     maturityDate: '28.08.2025',
-    earned: '76,070',
+    earned: '221,000',
     progress: 99
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+    <div className="min-h-screen bg-black text-white">
       {/* Header */}
       <div className="bg-card/10 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,7 +40,7 @@ const Index = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 text-white/80">
                 <Icon name="User" size={16} />
-                <span>Иван Петров</span>
+                <span>Сидорова Анастасия Витальевна</span>
               </div>
               <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
                 <Icon name="Settings" size={16} />
