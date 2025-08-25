@@ -18,9 +18,9 @@ const Index = () => {
     rate: '18.5',
     term: '17',
     openDate: '28.03.2024',
-    maturityDate: '28.08.2025',
+    maturityDate: '28.07.2024',
     earned: '221,000',
-    progress: 99
+    progress: 100
   };
 
   return (
@@ -79,7 +79,7 @@ const Index = () => {
         </Card>
 
         <Tabs defaultValue="deposits" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-3 bg-card/20 backdrop-blur-sm text-xs sm:text-sm">
+          <TabsList className="grid w-full grid-cols-2 mb-3 bg-card/20 backdrop-blur-sm text-xs sm:text-sm">
             <TabsTrigger value="deposits" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-1">
               <Icon name="Wallet" size={14} className="mr-1" />
               <span className="hidden sm:inline">Депозиты</span>
@@ -89,11 +89,6 @@ const Index = () => {
               <Icon name="Receipt" size={14} className="mr-1" />
               <span className="hidden sm:inline">Операции</span>
               <span className="sm:hidden">Опер</span>
-            </TabsTrigger>
-            <TabsTrigger value="analytics" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-1">
-              <Icon name="BarChart3" size={14} className="mr-1" />
-              <span className="hidden sm:inline">Аналитика</span>
-              <span className="sm:hidden">Анал</span>
             </TabsTrigger>
           </TabsList>
 
@@ -243,63 +238,7 @@ const Index = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="analytics">
-            <div className="grid gap-6 md:grid-cols-2">
-              <Card className="bg-card/90 backdrop-blur-sm border-white/10">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-white">
-                    <Icon name="TrendingUp" size={20} />
-                    <span>Доходность по месяцам</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {[
-                    { month: 'Декабрь 2024', income: 8543, progress: 90 },
-                    { month: 'Ноябрь 2024', income: 8426, progress: 85 },
-                    { month: 'Октябрь 2024', income: 8312, progress: 80 },
-                  ].map((item, index) => (
-                    <div key={index} className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-white/80">{item.month}</span>
-                        <span className="text-white font-semibold">+{item.income.toLocaleString()} ₽</span>
-                      </div>
-                      <Progress value={item.progress} className="h-2" />
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
 
-              <Card className="bg-card/90 backdrop-blur-sm border-white/10">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-white">
-                    <Icon name="Target" size={20} />
-                    <span>Цели и планы</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-white font-medium">Цель по доходности</span>
-                      <Badge className="bg-primary/20 text-primary border-primary/30">75%</Badge>
-                    </div>
-                    <p className="text-sm text-white/60 mb-3">100,000 ₽ к концу срока</p>
-                    <Progress value={75} className="h-2" />
-                    <p className="text-xs text-white/50 mt-2">Осталось накопить: 25,000 ₽</p>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-white/60">Среднемесячный доход:</span>
-                      <span className="text-white font-semibold">8,427 ₽</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-white/60">Годовая доходность:</span>
-                      <span className="text-white font-semibold">102,480 ₽</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
         </Tabs>
       </div>
     </div>
