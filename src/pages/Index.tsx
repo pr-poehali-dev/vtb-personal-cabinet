@@ -13,7 +13,7 @@ const Index = () => {
   ];
 
   const depositData = {
-    balance: '1,221,000',
+    balance: '223,075',
     rate: '18.5',
     openDate: '28.03.2024',
     maturityDate: '28.08.2025',
