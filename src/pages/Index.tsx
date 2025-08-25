@@ -18,7 +18,8 @@ const Index = () => {
     openDate: '28.03.2024',
     maturityDate: '28.08.2025',
     earned: '223,075',
-    progress: 85
+    progress: 85,
+    currentBalance: '223,075'
   };
 
   return (
