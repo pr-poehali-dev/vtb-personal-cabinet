@@ -7,20 +7,18 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const transactions = [
-    { id: 0, type: 'Начисление %', amount: '+46,333', date: '28.07.2025', status: 'Выполнено' },
-    { id: 1, type: 'Начисление %', amount: '+46,333', date: '28.03.2025', status: 'Выполнено' },
-    { id: 2, type: 'Начисление %', amount: '+46,333', date: '28.11.2024', status: 'Выполнено' },
-    { id: 3, type: 'Начисление %', amount: '+46,333', date: '28.07.2024', status: 'Выполнено' },
+    { id: 0, type: 'Начисление %', amount: '+75,468', date: '28.03.2025', status: 'Выполнено' },
+    { id: 1, type: 'Начисление %', amount: '+75,282', date: '28.11.2024', status: 'Выполнено' },
+    { id: 2, type: 'Начисление %', amount: '+72,325', date: '28.08.2024', status: 'Выполнено' },
   ];
 
   const depositData = {
     balance: '1,221,000',
     rate: '18.5',
-    term: '17',
     openDate: '28.03.2024',
-    maturityDate: '28.07.2024',
-    earned: '221,000',
-    progress: 100
+    maturityDate: '28.08.2025',
+    earned: '223,075',
+    progress: 85
   };
 
   return (
@@ -65,7 +63,7 @@ const Index = () => {
                   </div>
                   <div className="flex items-center space-x-1">
                     <Icon name="Calendar" size={14} />
-                    <span>До окончания: 4 дня</span>
+                    <span>До закрытия: 28.08.2025</span>
                   </div>
                 </div>
               </div>
@@ -117,12 +115,12 @@ const Index = () => {
                       <p className="text-lg font-semibold text-white">{depositData.rate}% годовых</p>
                     </div>
                     <div>
-                      <p className="text-sm text-white/60">Срок вклада</p>
-                      <p className="text-lg font-semibold text-white">{depositData.term} месяцев</p>
-                    </div>
-                    <div>
                       <p className="text-sm text-white/60">Дата открытия</p>
                       <p className="text-lg font-semibold text-white">{depositData.openDate}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-white/60">Дата закрытия</p>
+                      <p className="text-lg font-semibold text-white">{depositData.maturityDate}</p>
                     </div>
                   </div>
                   <div className="pt-4">
