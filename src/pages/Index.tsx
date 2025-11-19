@@ -1,247 +1,157 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import Icon from '@/components/ui/icon';
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import Icon from "@/components/ui/icon";
 
-const Index = () => {
+export default function Index() {
+  const depositData = {
+    name: "Сидорова Анастасия Витальевна",
+    depositName: "В плюсе",
+    amount: 1139080,
+    rate: 18.5,
+    openDate: "27.03.2024",
+    closeDate: "29.12.2025",
+    withdrawal: {
+      date: "27.08.2025",
+      amount: 150000
+    }
+  };
+
   const transactions = [
-    { id: 0, type: 'Начисление %', amount: '+75,468', date: '28.03.2025', status: 'Выполнено' },
-    { id: 1, type: 'Начисление %', amount: '+75,282', date: '28.11.2024', status: 'Выполнено' },
-    { id: 2, type: 'Начисление %', amount: '+72,325', date: '28.08.2024', status: 'Выполнено' },
+    { date: "27.03.2024", type: "Пополнение", amount: 1000000 },
+    { date: "27.07.2024", type: "Выплата процентов", amount: 71350 },
+    { date: "28.11.2024", type: "Выплата процентов", amount: 72320 },
+    { date: "28.04.2025", type: "Выплата процентов", amount: 73290 },
+    { date: "27.08.2025", type: "Выплата процентов", amount: 72120 }
   ];
 
-  const depositData = {
-    balance: '223,075',
-    rate: '18.5',
-    openDate: '28.03.2024',
-    maturityDate: '28.08.2025',
-    earned: '223,075',
-    progress: 85,
-    currentBalance: '223,075'
+  const formatAmount = (amount: number) => {
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'currency',
+      currency: 'RUB',
+      minimumFractionDigits: 2
+    }).format(amount);
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <div className="bg-card/10 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <Icon name="Building2" size={20} className="text-white" />
-                </div>
-                <span className="text-xl font-bold text-white">ВТБ Онлайн</span>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-white/80">
-                <Icon name="User" size={16} />
-                <span>Сидорова Анастасия Витальевна</span>
-              </div>
-              <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
-                <Icon name="Settings" size={16} />
-              </Button>
-            </div>
+    <div className="min-h-screen bg-black text-white p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+            <Icon name="Building2" size={28} className="text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold">ВТБ Онлайн</h1>
+            <p className="text-muted-foreground">Личный кабинет</p>
           </div>
         </div>
-      </div>
 
-      <div className="max-w-full mx-auto px-2 py-4">
-        {/* Main Balance Card */}
-        <Card className="mb-4 bg-gradient-to-r from-primary to-blue-600 border-0 text-white">
-          <CardContent className="p-4">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <p className="text-white/80 text-sm mb-1">Общий баланс депозитов</p>
-                <h1 className="text-2xl sm:text-3xl font-bold mb-2">{depositData.balance} ₽</h1>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm">
-                  <div className="flex items-center space-x-1">
-                    <Icon name="TrendingUp" size={14} />
-                    <span>Доходность: {depositData.rate}%</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Icon name="Calendar" size={14} />
-                    <span>До закрытия: 28.08.2025</span>
-                  </div>
+        <div className="mb-6">
+          <h2 className="text-xl text-muted-foreground mb-2">Добро пожаловать,</h2>
+          <h3 className="text-2xl font-semibold">{depositData.name}</h3>
+        </div>
+
+        <Card className="bg-card border-border p-6 mb-6">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="TrendingUp" size={24} className="text-accent" />
+                <h3 className="text-2xl font-bold">{depositData.depositName}</h3>
+              </div>
+              <Badge variant="outline" className="text-accent border-accent">
+                Активный вклад
+              </Badge>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground mb-1">Текущая сумма</p>
+              <p className="text-3xl font-bold text-accent">{formatAmount(depositData.amount)}</p>
+            </div>
+          </div>
+
+          <Separator className="my-6" />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="Percent" size={18} className="text-primary" />
+                <p className="text-sm text-muted-foreground">Процентная ставка</p>
+              </div>
+              <p className="text-2xl font-bold">{depositData.rate}%</p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="Calendar" size={18} className="text-primary" />
+                <p className="text-sm text-muted-foreground">Дата открытия</p>
+              </div>
+              <p className="text-xl font-semibold">{depositData.openDate}</p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="CalendarClock" size={18} className="text-primary" />
+                <p className="text-sm text-muted-foreground">Дата закрытия</p>
+              </div>
+              <p className="text-xl font-semibold">{depositData.closeDate}</p>
+            </div>
+          </div>
+
+          {depositData.withdrawal && (
+            <>
+              <Separator className="my-6" />
+              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon name="AlertCircle" size={20} className="text-destructive" />
+                  <p className="font-semibold text-destructive">Запланированное списание</p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <p className="text-muted-foreground">{depositData.withdrawal.date}</p>
+                  <p className="text-xl font-bold text-destructive">
+                    -{formatAmount(depositData.withdrawal.amount)}
+                  </p>
                 </div>
               </div>
-              <div className="text-left sm:text-right">
-                <p className="text-white/80 text-sm mb-1">Начислено за период</p>
-                <p className="text-xl sm:text-2xl font-semibold">+{depositData.earned} ₽</p>
-                <Progress value={depositData.progress} className="w-24 sm:w-32 mt-1" />
-              </div>
-            </div>
-          </CardContent>
+            </>
+          )}
         </Card>
 
-        <Tabs defaultValue="deposits" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-3 bg-card/20 backdrop-blur-sm text-xs sm:text-sm">
-            <TabsTrigger value="deposits" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-1">
-              <Icon name="Wallet" size={14} className="mr-1" />
-              <span className="hidden sm:inline">Депозиты</span>
-              <span className="sm:hidden">Депо</span>
-            </TabsTrigger>
-            <TabsTrigger value="transactions" className="text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-1">
-              <Icon name="Receipt" size={14} className="mr-1" />
-              <span className="hidden sm:inline">Операции</span>
-              <span className="sm:hidden">Опер</span>
-            </TabsTrigger>
-          </TabsList>
+        <Card className="bg-card border-border p-6">
+          <div className="flex items-center gap-2 mb-6">
+            <Icon name="History" size={24} className="text-primary" />
+            <h3 className="text-2xl font-bold">История операций</h3>
+          </div>
 
-          <TabsContent value="deposits">
-            <div className="grid gap-3 lg:grid-cols-2">
-              <Card className="bg-card/90 backdrop-blur-sm border-white/10">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between text-white">
-                    <div className="flex items-center space-x-2">
-                      <Icon name="PiggyBank" size={20} />
-                      <span>Срочный депозит №1</span>
-                    </div>
-                    <Badge variant="secondary" className="bg-green-500/20 text-green-300 border-green-500/30">
-                      Активный
-                    </Badge>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-sm text-white/60">Сумма вклада</p>
-                      <p className="text-lg font-semibold text-white">{depositData.balance} ₽</p>
+          <div className="space-y-4">
+            {transactions.map((transaction, index) => (
+              <div key={index}>
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                      transaction.type === "Пополнение" 
+                        ? "bg-accent/20" 
+                        : "bg-primary/20"
+                    }`}>
+                      <Icon 
+                        name={transaction.type === "Пополнение" ? "ArrowDownToLine" : "Coins"} 
+                        size={20} 
+                        className={transaction.type === "Пополнение" ? "text-accent" : "text-primary"}
+                      />
                     </div>
                     <div>
-                      <p className="text-sm text-white/60">Процентная ставка</p>
-                      <p className="text-lg font-semibold text-white">{depositData.rate}% годовых</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-white/60">Дата открытия</p>
-                      <p className="text-lg font-semibold text-white">{depositData.openDate}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-white/60">Дата закрытия</p>
-                      <p className="text-lg font-semibold text-white">{depositData.maturityDate}</p>
+                      <p className="font-semibold">{transaction.type}</p>
+                      <p className="text-sm text-muted-foreground">{transaction.date}</p>
                     </div>
                   </div>
-                  <div className="pt-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-white/60">Прогресс по сроку</span>
-                      <span className="text-sm text-white">{depositData.progress}%</span>
-                    </div>
-                    <Progress value={depositData.progress} className="mb-4" />
-                  </div>
-                  <div className="flex space-x-2">
-                    <Button variant="outline" size="sm" className="flex-1 border-white/20 text-white hover:bg-white/10">
-                      <Icon name="Download" size={16} className="mr-2" />
-                      Выписка
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1 border-white/20 text-white hover:bg-white/10">
-                      <Icon name="Settings" size={16} className="mr-2" />
-                      Настройки
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/90 backdrop-blur-sm border-white/10">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-white">
-                    <Icon name="Calculator" size={20} />
-                    <span>Калькулятор доходности</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-white/60">Начальная сумма:</span>
-                      <span className="text-white font-semibold">1,220,000 ₽</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-white/60">Ставка в год:</span>
-                      <span className="text-white font-semibold">8.4%</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-white/60">Срок:</span>
-                      <span className="text-white font-semibold">12 месяцев</span>
-                    </div>
-                    <div className="border-t border-white/10 pt-3">
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Проценты за весь срок:</span>
-                        <span className="text-white font-bold">102,480 ₽</span>
-                      </div>
-                      <div className="flex justify-between mt-2">
-                        <span className="text-white/60">Итого к получению:</span>
-                        <span className="text-white font-bold text-lg">1,322,480 ₽</span>
-                      </div>
-                    </div>
-                  </div>
-                  <Button className="w-full bg-primary hover:bg-primary/90">
-                    <Icon name="Plus" size={16} className="mr-2" />
-                    Открыть новый депозит
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="transactions">
-            <Card className="bg-card/90 backdrop-blur-sm border-white/10">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between text-white">
-                  <div className="flex items-center space-x-2">
-                    <Icon name="Receipt" size={20} />
-                    <span>История операций</span>
-                  </div>
-                  <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
-                    <Icon name="Filter" size={16} className="mr-2" />
-                    Фильтры
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {transactions.map((transaction) => (
-                    <div key={transaction.id} className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                          <Icon 
-                            name={transaction.type === 'Пополнение' ? 'ArrowDownLeft' : 'Percent'} 
-                            size={16} 
-                            className="text-primary" 
-                          />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-white">{transaction.type}</p>
-                          <p className="text-sm text-white/60">{transaction.date}</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className={`font-semibold ${transaction.amount.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
-                          {transaction.amount} ₽
-                        </p>
-                        <Badge variant="secondary" className="text-xs bg-green-500/20 text-green-300 border-green-500/30">
-                          {transaction.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
+                  <p className={`text-xl font-bold ${
+                    transaction.type === "Пополнение" ? "text-accent" : "text-primary"
+                  }`}>
+                    +{formatAmount(transaction.amount)}
+                  </p>
                 </div>
-                <div className="mt-6 text-center">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    <Icon name="ChevronDown" size={16} className="mr-2" />
-                    Загрузить еще
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-
-        </Tabs>
+                {index < transactions.length - 1 && <Separator />}
+              </div>
+            ))}
+          </div>
+        </Card>
       </div>
     </div>
   );
-};
-
-export default Index;
+}
