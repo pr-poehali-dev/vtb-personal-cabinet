@@ -6,7 +6,7 @@ import Icon from "@/components/ui/icon";
 export default function Index() {
   const depositData = {
     name: "Сидорова Анастасия Витальевна",
-    depositName: "В плюсе",
+    depositName: "\"В плюсе\"",
     amount: 1139080,
     rate: 18.5,
     openDate: "27.03.2024",
@@ -22,7 +22,8 @@ export default function Index() {
     { date: "27.07.2024", type: "Выплата процентов", amount: 71350 },
     { date: "28.11.2024", type: "Выплата процентов", amount: 72320 },
     { date: "28.04.2025", type: "Выплата процентов", amount: 73290 },
-    { date: "27.08.2025", type: "Выплата процентов", amount: 72120 }
+    { date: "27.08.2025", type: "Выплата процентов", amount: 72120 },
+    { date: "27.08.2025", type: "Списание", amount: -150000 }
   ];
 
   const formatAmount = (amount: number) => {
@@ -52,17 +53,15 @@ export default function Index() {
         </div>
 
         <Card className="bg-card border-border p-6 mb-6">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Icon name="TrendingUp" size={24} className="text-accent" />
-                <h3 className="text-2xl font-bold">{depositData.depositName}</h3>
-              </div>
-              <Badge variant="outline" className="text-accent border-accent">
-                Активный вклад
-              </Badge>
+          <div className="mb-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Icon name="TrendingUp" size={24} className="text-accent" />
+              <h3 className="text-2xl font-bold">{depositData.depositName}</h3>
             </div>
-            <div className="text-right">
+            <Badge variant="outline" className="text-accent border-accent mb-4">
+              Активный вклад
+            </Badge>
+            <div>
               <p className="text-sm text-muted-foreground mb-1">Текущая сумма</p>
               <p className="text-3xl font-bold text-accent">{formatAmount(depositData.amount)}</p>
             </div>
@@ -94,23 +93,7 @@ export default function Index() {
             </div>
           </div>
 
-          {depositData.withdrawal && (
-            <>
-              <Separator className="my-6" />
-              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon name="AlertCircle" size={20} className="text-destructive" />
-                  <p className="font-semibold text-destructive">Запланированное списание</p>
-                </div>
-                <div className="flex justify-between items-center">
-                  <p className="text-muted-foreground">{depositData.withdrawal.date}</p>
-                  <p className="text-xl font-bold text-destructive">
-                    -{formatAmount(depositData.withdrawal.amount)}
-                  </p>
-                </div>
-              </div>
-            </>
-          )}
+
         </Card>
 
         <Card className="bg-card border-border p-6">
@@ -127,12 +110,14 @@ export default function Index() {
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                       transaction.type === "Пополнение" 
                         ? "bg-accent/20" 
+                        : transaction.type === "Списание"
+                        ? "bg-destructive/20"
                         : "bg-primary/20"
                     }`}>
                       <Icon 
-                        name={transaction.type === "Пополнение" ? "ArrowDownToLine" : "Coins"} 
+                        name={transaction.type === "Пополнение" ? "ArrowDownToLine" : transaction.type === "Списание" ? "ArrowUpFromLine" : "Coins"} 
                         size={20} 
-                        className={transaction.type === "Пополнение" ? "text-accent" : "text-primary"}
+                        className={transaction.type === "Пополнение" ? "text-accent" : transaction.type === "Списание" ? "text-destructive" : "text-primary"}
                       />
                     </div>
                     <div>
@@ -141,9 +126,9 @@ export default function Index() {
                     </div>
                   </div>
                   <p className={`text-xl font-bold ${
-                    transaction.type === "Пополнение" ? "text-accent" : "text-primary"
+                    transaction.type === "Пополнение" ? "text-accent" : transaction.type === "Списание" ? "text-destructive" : "text-primary"
                   }`}>
-                    +{formatAmount(transaction.amount)}
+                    {transaction.amount > 0 ? "+" : ""}{formatAmount(transaction.amount)}
                   </p>
                 </div>
                 {index < transactions.length - 1 && <Separator />}
