@@ -7,10 +7,10 @@ export default function Index() {
   const depositData = {
     name: "Сидорова Анастасия Витальевна",
     depositName: "\"В плюсе\"",
-    amount: 1139080,
+    amount: 1208361.15,
     rate: 18.5,
     openDate: "27.03.2024",
-    closeDate: "29.12.2025",
+    closeDate: "27.04.2026",
     withdrawal: {
       date: "27.08.2025",
       amount: 150000
@@ -23,7 +23,8 @@ export default function Index() {
     { date: "28.11.2024", type: "Выплата процентов", amount: 72320 },
     { date: "28.04.2025", type: "Выплата процентов", amount: 73290 },
     { date: "27.08.2025", type: "Выплата процентов", amount: 72120 },
-    { date: "27.08.2025", type: "Списание", amount: -150000 }
+    { date: "27.08.2025", type: "Списание", amount: -150000 },
+    { date: "27.12.2025", type: "Выплата процентов", amount: 69281 }
   ];
 
   const formatAmount = (amount: number) => {
