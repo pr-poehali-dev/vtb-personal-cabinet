@@ -1,9 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Icon from "@/components/ui/icon";
+import { useState } from "react";
 
 export default function Index() {
+  const [activeTab, setActiveTab] = useState("deposit");
   const depositData = {
     name: "Сидорова Анастасия Витальевна",
     depositName: "\"В плюсе\"",
@@ -53,90 +56,105 @@ export default function Index() {
           <h3 className="text-2xl font-semibold">{depositData.name}</h3>
         </div>
 
-        <Card className="bg-card border-border p-6 mb-6">
-          <div className="mb-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Icon name="TrendingUp" size={24} className="text-accent" />
-              <h3 className="text-2xl font-bold">{depositData.depositName}</h3>
-            </div>
-            <Badge variant="outline" className="text-accent border-accent mb-4">
-              Активный вклад
-            </Badge>
-            <div>
-              <p className="text-sm text-muted-foreground mb-1">Текущая сумма</p>
-              <p className="text-3xl font-bold text-accent">{formatAmount(depositData.amount)}</p>
-            </div>
-          </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="deposit" className="flex items-center gap-2">
+              <Icon name="TrendingUp" size={18} />
+              Вклад
+            </TabsTrigger>
+            <TabsTrigger value="history" className="flex items-center gap-2">
+              <Icon name="History" size={18} />
+              История операций
+            </TabsTrigger>
+          </TabsList>
 
-          <Separator className="my-6" />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Icon name="Percent" size={18} className="text-primary" />
-                <p className="text-sm text-muted-foreground">Процентная ставка</p>
-              </div>
-              <p className="text-2xl font-bold">{depositData.rate}%</p>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Icon name="Calendar" size={18} className="text-primary" />
-                <p className="text-sm text-muted-foreground">Дата открытия</p>
-              </div>
-              <p className="text-xl font-semibold">{depositData.openDate}</p>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Icon name="CalendarClock" size={18} className="text-primary" />
-                <p className="text-sm text-muted-foreground">Дата закрытия</p>
-              </div>
-              <p className="text-xl font-semibold">{depositData.closeDate}</p>
-            </div>
-          </div>
-
-
-        </Card>
-
-        <Card className="bg-card border-border p-6">
-          <div className="flex items-center gap-2 mb-6">
-            <Icon name="History" size={24} className="text-primary" />
-            <h3 className="text-2xl font-bold">История операций</h3>
-          </div>
-
-          <div className="space-y-4">
-            {transactions.map((transaction, index) => (
-              <div key={index}>
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      transaction.type === "Пополнение" 
-                        ? "bg-accent/20" 
-                        : transaction.type === "Списание"
-                        ? "bg-destructive/20"
-                        : "bg-primary/20"
-                    }`}>
-                      <Icon 
-                        name={transaction.type === "Пополнение" ? "ArrowDownToLine" : transaction.type === "Списание" ? "ArrowUpFromLine" : "Coins"} 
-                        size={20} 
-                        className={transaction.type === "Пополнение" ? "text-accent" : transaction.type === "Списание" ? "text-destructive" : "text-primary"}
-                      />
-                    </div>
-                    <div>
-                      <p className="font-semibold">{transaction.type}</p>
-                      <p className="text-sm text-muted-foreground">{transaction.date}</p>
-                    </div>
-                  </div>
-                  <p className={`text-xl font-bold ${
-                    transaction.type === "Пополнение" ? "text-accent" : transaction.type === "Списание" ? "text-destructive" : "text-primary"
-                  }`}>
-                    {transaction.amount > 0 ? "+" : ""}{formatAmount(transaction.amount)}
-                  </p>
+          <TabsContent value="deposit">
+            <Card className="bg-card border-border p-6">
+              <div className="mb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon name="TrendingUp" size={24} className="text-accent" />
+                  <h3 className="text-2xl font-bold">{depositData.depositName}</h3>
                 </div>
-                {index < transactions.length - 1 && <Separator />}
+                <Badge variant="outline" className="text-accent border-accent mb-4">
+                  Активный вклад
+                </Badge>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Текущая сумма</p>
+                  <p className="text-3xl font-bold text-accent">{formatAmount(depositData.amount)}</p>
+                </div>
               </div>
-            ))}
-          </div>
-        </Card>
+
+              <Separator className="my-6" />
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="Percent" size={18} className="text-primary" />
+                    <p className="text-sm text-muted-foreground">Процентная ставка</p>
+                  </div>
+                  <p className="text-2xl font-bold">{depositData.rate}%</p>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="Calendar" size={18} className="text-primary" />
+                    <p className="text-sm text-muted-foreground">Дата открытия</p>
+                  </div>
+                  <p className="text-xl font-semibold">{depositData.openDate}</p>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="CalendarClock" size={18} className="text-primary" />
+                    <p className="text-sm text-muted-foreground">Дата закрытия</p>
+                  </div>
+                  <p className="text-xl font-semibold">{depositData.closeDate}</p>
+                </div>
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="history">
+            <Card className="bg-card border-border p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <Icon name="History" size={24} className="text-primary" />
+                <h3 className="text-2xl font-bold">История операций</h3>
+              </div>
+
+              <div className="space-y-4">
+                {transactions.map((transaction, index) => (
+                  <div key={index}>
+                    <div className="flex items-center justify-between py-3">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                          transaction.type === "Пополнение" 
+                            ? "bg-accent/20" 
+                            : transaction.type === "Списание"
+                            ? "bg-destructive/20"
+                            : "bg-primary/20"
+                        }`}>
+                          <Icon 
+                            name={transaction.type === "Пополнение" ? "ArrowDownToLine" : transaction.type === "Списание" ? "ArrowUpFromLine" : "Coins"} 
+                            size={20} 
+                            className={transaction.type === "Пополнение" ? "text-accent" : transaction.type === "Списание" ? "text-destructive" : "text-primary"}
+                          />
+                        </div>
+                        <div>
+                          <p className="font-semibold">{transaction.type}</p>
+                          <p className="text-sm text-muted-foreground">{transaction.date}</p>
+                        </div>
+                      </div>
+                      <p className={`text-xl font-bold ${
+                        transaction.type === "Пополнение" ? "text-accent" : transaction.type === "Списание" ? "text-destructive" : "text-primary"
+                      }`}>
+                        {transaction.amount > 0 ? "+" : ""}{formatAmount(transaction.amount)}
+                      </p>
+                    </div>
+                    {index < transactions.length - 1 && <Separator />}
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
