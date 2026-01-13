@@ -5,9 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { useState } from "react";
+import Chat from "@/components/Chat";
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState("deposit");
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const depositData = {
     name: "Сидорова Анастасия Витальевна",
     depositName: "\"В плюсе\"",
@@ -87,7 +89,7 @@ export default function Index() {
 
               <Separator className="my-6" />
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Icon name="Percent" size={18} className="text-primary" />
@@ -108,6 +110,13 @@ export default function Index() {
                     <p className="text-sm text-muted-foreground">Дата закрытия</p>
                   </div>
                   <p className="text-xl font-semibold">{depositData.closeDate}</p>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="Clock" size={18} className="text-primary" />
+                    <p className="text-sm text-muted-foreground">Срок вклада</p>
+                  </div>
+                  <p className="text-xl font-semibold">4 месяца</p>
                 </div>
               </div>
             </Card>
@@ -168,11 +177,13 @@ export default function Index() {
           <Button 
             size="lg" 
             className="rounded-full h-14 w-14 shadow-lg bg-accent hover:bg-accent/90"
-            onClick={() => alert('Онлайн-чат скоро откроется')}
+            onClick={() => setIsChatOpen(!isChatOpen)}
           >
             <Icon name="MessageCircle" size={24} />
           </Button>
         </div>
+
+        <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       </div>
     </div>
   );
