@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { useState } from "react";
 
@@ -155,6 +156,23 @@ export default function Index() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <div className="fixed bottom-6 right-6 flex flex-col gap-3">
+          <Button 
+            size="lg" 
+            className="rounded-full h-14 w-14 shadow-lg"
+            onClick={() => window.open('tel:+78001002424', '_self')}
+          >
+            <Icon name="Phone" size={24} />
+          </Button>
+          <Button 
+            size="lg" 
+            className="rounded-full h-14 w-14 shadow-lg bg-accent hover:bg-accent/90"
+            onClick={() => alert('Онлайн-чат скоро откроется')}
+          >
+            <Icon name="MessageCircle" size={24} />
+          </Button>
+        </div>
       </div>
     </div>
   );
