@@ -13,7 +13,7 @@ export default function Index() {
   const depositData = {
     name: "Сидорова Анастасия Витальевна",
     depositName: "\"В плюсе\"",
-    amount: 1208361.15,
+    amount: 1299883.15,
     rate: 18.5,
     openDate: "27.03.2024",
     closeDate: "27.09.2026",
