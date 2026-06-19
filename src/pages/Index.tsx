@@ -31,7 +31,7 @@ export default function Index() {
     { date: "27.08.2025", type: "Выплата процентов", amount: 72120 },
     { date: "27.08.2025", type: "Списание", amount: -150000 },
     { date: "27.12.2025", type: "Выплата процентов", amount: 69281 },
-    { date: "27.05.2026", type: "Выплата процентов", amount: 69281 }
+    { date: "27.05.2026", type: "Выплата процентов", amount: 91522 }
   ];
 
   const formatAmount = (amount: number) => {
