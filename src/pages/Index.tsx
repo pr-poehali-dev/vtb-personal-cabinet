@@ -16,7 +16,7 @@ export default function Index() {
     amount: 1208361.15,
     rate: 18.5,
     openDate: "27.03.2024",
-    closeDate: "27.06.2026",
+    closeDate: "27.09.2026",
     withdrawal: {
       date: "27.08.2025",
       amount: 150000
@@ -30,7 +30,8 @@ export default function Index() {
     { date: "28.04.2025", type: "Выплата процентов", amount: 73290 },
     { date: "27.08.2025", type: "Выплата процентов", amount: 72120 },
     { date: "27.08.2025", type: "Списание", amount: -150000 },
-    { date: "27.12.2025", type: "Выплата процентов", amount: 69281 }
+    { date: "27.12.2025", type: "Выплата процентов", amount: 69281 },
+    { date: "27.05.2026", type: "Выплата процентов", amount: 69281 }
   ];
 
   const formatAmount = (amount: number) => {
@@ -116,7 +117,7 @@ export default function Index() {
                     <Icon name="Clock" size={18} className="text-primary" />
                     <p className="text-sm text-muted-foreground">Срок вклада</p>
                   </div>
-                  <p className="text-xl font-semibold">6 месяцев</p>
+                  <p className="text-xl font-semibold">4 месяца</p>
                 </div>
               </div>
             </Card>
