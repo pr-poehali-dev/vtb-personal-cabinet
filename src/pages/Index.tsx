@@ -3,13 +3,34 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Icon from "@/components/ui/icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Chat from "@/components/Chat";
+
+interface ExchangeRates {
+  USD: number;
+  EUR: number;
+  CNY: number;
+}
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState("deposit");
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [rates, setRates] = useState<ExchangeRates | null>(null);
+  const [ratesLoading, setRatesLoading] = useState(true);
+
+  const cardBalance = 1900;
+
+  useEffect(() => {
+    fetch("https://functions.poehali.dev/225e414e-7ab5-4354-ad44-45fc405f97bc")
+      .then((res) => res.json())
+      .then((data) => {
+        setRates(data.rates);
+        setRatesLoading(false);
+      })
+      .catch(() => setRatesLoading(false));
+  }, []);
   const depositData = {
     name: "Сидорова Анастасия Витальевна",
     depositName: "\"В плюсе\"",
@@ -45,14 +66,43 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-            <Icon name="Building2" size={28} className="text-white" />
+        <div className="flex items-center justify-between gap-3 mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+              <Icon name="Building2" size={28} className="text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold">ВТБ Онлайн</h1>
+              <p className="text-muted-foreground">Личный кабинет</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold">ВТБ Онлайн</h1>
-            <p className="text-muted-foreground">Личный кабинет</p>
-          </div>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-lg hover:bg-card">
+                <Icon name="Settings" size={26} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="bg-card border-border w-72">
+              <p className="font-semibold mb-3">Связаться с нами</p>
+              <div className="space-y-3">
+                <a
+                  href="tel:+79818108685"
+                  className="flex items-center gap-3 text-sm hover:text-primary transition-colors"
+                >
+                  <Icon name="Phone" size={18} className="text-primary" />
+                  +7 981 810-86-85
+                </a>
+                <a
+                  href="mailto:anastasia_sidorova2016@mail.ru"
+                  className="flex items-center gap-3 text-sm hover:text-primary transition-colors"
+                >
+                  <Icon name="Mail" size={18} className="text-primary" />
+                  anastasia_sidorova2016@mail.ru
+                </a>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
 
         <div className="mb-6">
@@ -61,10 +111,18 @@ export default function Index() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-6">
             <TabsTrigger value="deposit" className="flex items-center gap-2">
               <Icon name="TrendingUp" size={18} />
               Вклад
+            </TabsTrigger>
+            <TabsTrigger value="card" className="flex items-center gap-2">
+              <Icon name="CreditCard" size={18} />
+              Карта
+            </TabsTrigger>
+            <TabsTrigger value="investments" className="flex items-center gap-2">
+              <Icon name="LineChart" size={18} />
+              Инвестиции
             </TabsTrigger>
             <TabsTrigger value="history" className="flex items-center gap-2">
               <Icon name="History" size={18} />
@@ -119,6 +177,62 @@ export default function Index() {
                   </div>
                   <p className="text-xl font-semibold">4 месяца</p>
                 </div>
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="card">
+            <Card className="bg-card border-border p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <Icon name="CreditCard" size={24} className="text-primary" />
+                <h3 className="text-2xl font-bold">Карта</h3>
+              </div>
+
+              <div className="relative rounded-2xl p-6 bg-gradient-to-br from-primary to-primary/70 text-white overflow-hidden">
+                <div className="flex items-center justify-between mb-8">
+                  <Icon name="Wifi" size={28} className="rotate-90" />
+                  <span className="font-semibold tracking-wide">ВТБ</span>
+                </div>
+                <p className="text-sm text-white/70 mb-1">Баланс</p>
+                <p className="text-3xl font-bold mb-8">{formatAmount(cardBalance)}</p>
+                <div className="flex items-center justify-between">
+                  <p className="tracking-[0.2em] text-lg">•••• •••• •••• 4821</p>
+                  <p className="font-semibold italic">VISA</p>
+                </div>
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="investments">
+            <Card className="bg-card border-border p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <Icon name="LineChart" size={24} className="text-primary" />
+                <h3 className="text-2xl font-bold">Инвестиции</h3>
+              </div>
+
+              <div className="rounded-xl border border-border p-6">
+                <p className="text-sm text-muted-foreground mb-4">Актуальные курсы валют, ЦБ РФ</p>
+                {ratesLoading ? (
+                  <p className="text-sm text-muted-foreground">Загрузка курсов...</p>
+                ) : (
+                  <div className="flex flex-wrap items-center gap-6">
+                    <div className="flex items-center gap-2">
+                      <Icon name="DollarSign" size={20} className="text-accent" />
+                      <span className="text-sm text-muted-foreground">USD</span>
+                      <span className="font-bold">{rates?.USD ?? "—"} ₽</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Icon name="Euro" size={20} className="text-accent" />
+                      <span className="text-sm text-muted-foreground">EUR</span>
+                      <span className="font-bold">{rates?.EUR ?? "—"} ₽</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Icon name="CircleDollarSign" size={20} className="text-accent" />
+                      <span className="text-sm text-muted-foreground">CNY</span>
+                      <span className="font-bold">{rates?.CNY ?? "—"} ₽</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
           </TabsContent>
